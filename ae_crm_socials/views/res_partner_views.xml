@@ -12,10 +12,25 @@
                             <field name="linkedin_url" widget="url"/>
                             <field name="facebook_url" widget="url"/>
                             <field name="twitter_url" widget="url"/>
+                            <field name="is_profile_incomplete" invisible="0"/>
                         </group>
                     </page>
                 </page>
             </field>
         </record>
+
+        <record id="res_partner_view_search_inherit_socials" model="ir.ui.view">
+            <field name="name">res.partner.search.inherit.socials</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <filter name='type_company' position="after">
+                    <separator/>
+                    <filter name="is_profile_incomplete" string="Profile Incomplete"
+                            domain="[('is_profile_incomplete', '!=', False)]"/>
+                </filter>
+            </field>
+        </record>
+
     </data>
 </odoo>
