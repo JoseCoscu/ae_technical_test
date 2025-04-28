@@ -8,6 +8,15 @@ class Partner(models.Model):
     linkedin_url = fields.Char(string='Linkedin URL')
     facebook_url = fields.Char(string='Facebook URL')
     twitter_url = fields.Char(string='Twitter URL')
+    is_profile_incomplete = fields.Boolean(string='Is profile incomplete?', compute='_compute_is_profile_incomplete', store=True)
+
+    @api.depends('linkedin_url', 'facebook_url', 'twitter_url')
+    def _compute_is_profile_incomplete(self):
+        for record in self:
+            if not record.linkedin_url or not record.facebook_url or not record.twitter_url:
+                record.is_profile_incomplete = True
+            else:
+                record.is_profile_incomplete = False
 
     def write(self, vals):
         if vals.get('linkedin_url'):
