@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_partner_view_form_inherit_socials" model="ir.ui.view">
+            <field name="name">res.partner.view.form.inherit.socials</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <page name='internal_notes' position="after">
+                    <page name="socials" string="Socials">
+                        <group>
+                            <field name="linkedin_url" widget="url"/>
+                            <field name="facebook_url" widget="url"/>
+                            <field name="twitter_url" widget="url"/>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</odoo>
