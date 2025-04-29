@@ -8,7 +8,16 @@ class Partner(models.Model):
     linkedin_url = fields.Char(string='Linkedin URL')
     facebook_url = fields.Char(string='Facebook URL')
     twitter_url = fields.Char(string='Twitter URL')
+    complete_name = fields.Char(compute='_compute_complete_name', store=True, index=True)
     is_profile_incomplete = fields.Boolean(string='Is profile incomplete?', compute='_compute_is_profile_incomplete', store=True)
+
+    @api.depends('is_company', 'name', 'parent_id.name', 'type', 'company_name', 'commercial_company_name',
+                 'is_profile_incomplete')
+    def _compute_complete_name(self):
+        super()._compute_complete_name()
+        for partner in self:
+            if not partner.is_profile_incomplete:
+                partner.complete_name = f"{partner.complete_name} ✅"
 
     @api.depends('linkedin_url', 'facebook_url', 'twitter_url')
     def _compute_is_profile_incomplete(self):
@@ -35,3 +44,4 @@ class Partner(models.Model):
                 url = url.replace(netloc=url.path, path='')
             social_url = url.replace(scheme='http').to_url()
         return social_url
+
