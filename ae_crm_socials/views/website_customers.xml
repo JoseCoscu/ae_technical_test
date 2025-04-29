@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="website.menu" id="menu_customer">
+        <field name="name">Customers</field>
+        <field name="url">/customers</field>
+        <field name="parent_id" ref="website.main_menu"></field>
+        <field name="sequence" type="int">30</field>
+    </record>
+
+    <template id="customers_page" name="Customers Page">
+        <t t-call="website.layout">
+            <div class="container my-5">
+                <h1 class="text-center mb-5">Our Customers</h1>
+                <div class="row">
+                    <t t-foreach="customers" t-as="customer">
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm">
+                                <div class="card-body text-center">
+                                    <h4 class="card-title">
+                                        <t t-esc="customer.name"/>
+                                    </h4>
+                                    <p class="card-text">
+                                        <t t-esc="customer.comment or 'No description available.'"/>
+                                    </p>
+                                    <div class="d-flex justify-content-center gap-3 mt-3">
+                                        <t t-if="customer.facebook_url">
+                                            <a t-att-href="customer.facebook_url" target="_blank">
+                                                <i class="fa fa-facebook fa-lg" title="Facebook"></i>
+                                            </a>
+                                        </t>
+                                        <t t-if="customer.twitter_url">
+                                            <a t-att-href="customer.twitter_url" target="_blank">
+                                                <i class="fa fa-twitter fa-lg" title="Twitter"></i>
+                                            </a>
+                                        </t>
+                                        <t t-if="customer.linkedin_url">
+                                            <a t-att-href="customer.linkedin_url" target="_blank">
+                                                <i class="fa fa-linkedin fa-lg" title="Instagram"></i>
+                                            </a>
+                                        </t>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>
