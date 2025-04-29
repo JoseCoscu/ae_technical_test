@@ -7,8 +7,9 @@
     'author': 'Juan Jose',
     'version': '18.0.0.0.1',
 
-    'depends': ['base','crm'],
-    'data': ["views/res_partner_views.xml"],
+    'depends': ['base','crm',"web"],
+    'data': ["views/res_partner_views.xml",
+             "views/website_customers.xml"],
     'installable': True,
     'auto_install': False,
     'application': False,
