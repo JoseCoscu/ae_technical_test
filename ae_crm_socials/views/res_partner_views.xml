@@ -36,6 +36,15 @@
                     </div>
                 </field>
 
+                <xpath expr="//page[@name='contact_addresses']/field[@name='child_ids']/kanban/templates/t[@t-name='card']/main"
+                       position="inside">
+                    <div invisible="is_profile_incomplete">
+                        <i class="fa fa-check-circle" style="color: green; margin-right: 5px;"
+                           title="Profile Complete"></i>
+                        <span style="color: green; font-weight: bold;">Profile complete</span>
+                    </div>
+                </xpath>
+
 
                 <page name='internal_notes' position="after">
                     <page name="socials" string="Socials">

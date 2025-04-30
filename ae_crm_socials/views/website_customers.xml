@@ -9,57 +9,53 @@
     </record>
 
     <template id="customers_page" name="Customers Page">
-        <t t-call="website.layout">
-            <div class="container my-5">
-                <h1 class="text-center mb-5">Our Customers</h1>
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
 
-                <!-- Buscador -->
-                <div class="input-group">
-                    <input type="text" name="search" class="form-control" placeholder="Search customers..."
-                           t-att-value="request.params.get('search', '')"/>
-
-                    <select name="search_type" class="form-select" style="max-width: 150px;">
-                        <option value="name" t-att-selected="'name' == request.params.get('search_type', 'name')">
-                            Name</option>
-                        <option value="social" t-att-selected="'social' == request.params.get('search_type')">
-                            Social</option>
-                    </select>
-
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
-
-                <!-- Lista de Customers -->
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Customers</t>
+            </t>
+            <div class="container">
                 <ul class="list-group">
                     <t t-foreach="customers" t-as="customer">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <h5 class="mb-1"><t t-esc="customer.name"/></h5>
-                                <small class="text-muted">
-                                    <t t-esc="customer.comment or 'No description available.'"/>
-                                </small>
-                            </div>
-                            <div class="d-flex gap-3">
-                                <t t-if="customer.facebook_url">
-                                    <a t-att-href="customer.facebook_url" target="_blank">
-                                        <i class="fa fa-facebook fa-lg text-primary" title="Facebook"></i>
-                                    </a>
-                                </t>
-                                <t t-if="customer.twitter_url">
-                                    <a t-att-href="customer.twitter_url" target="_blank">
-                                        <i class="fa fa-twitter fa-lg text-info" title="Twitter"></i>
-                                    </a>
-                                </t>
-                                <t t-if="customer.linkedin_url">
-                                    <a t-att-href="customer.linkedin_url" target="_blank">
-                                        <i class="fa fa-linkedin fa-lg text-primary" title="LinkedIn"></i>
-                                    </a>
-                                </t>
-                            </div>
-                        </li>
+                        <t t-call="ae_crm_socials.customer">
+                            <t t-set="customer" t-value="customer"/>
+                        </t>
                     </t>
                 </ul>
             </div>
+            <div>
+                <t t-call="portal.pager"/>
+            </div>
         </t>
+    </template>
+
+    <template id="customer" name="Customer">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="mb-1"><t t-esc="customer.name"/></h5>
+                <small class="text-muted">
+                    <t t-esc="customer.comment or 'No description available.'"/>
+                </small>
+            </div>
+            <div class="d-flex gap-3">
+                <t t-if="customer.facebook_url">
+                    <a t-att-href="customer.facebook_url" target="_blank">
+                        <i class="fa fa-facebook fa-lg text-primary" title="Facebook"></i>
+                    </a>
+                </t>
+                <t t-if="customer.twitter_url">
+                    <a t-att-href="customer.twitter_url" target="_blank">
+                        <i class="fa fa-twitter fa-lg text-info" title="Twitter"></i>
+                    </a>
+                </t>
+                <t t-if="customer.linkedin_url">
+                    <a t-att-href="customer.linkedin_url" target="_blank">
+                        <i class="fa fa-linkedin fa-lg text-primary" title="LinkedIn"></i>
+                    </a>
+                </t>
+            </div>
+        </li>
     </template>
 
 
